@@ -27,8 +27,6 @@ app.get("/", (req,res)=>{
 });
 
 
-// /users
-// Read
 app.get("/users", (req, res)=>{
     return res.status(200).send({
         success: true,
@@ -36,8 +34,6 @@ app.get("/users", (req, res)=>{
         datas: { users }
     });
 })
-
-// Create
 app.post("/users", (req, res)=>{
     users = baseUsers.slice();
 
@@ -47,8 +43,6 @@ app.post("/users", (req, res)=>{
         datas: { users }
     });
 })
-
-// Update
 app.put("/users", (req, res)=>{
     users.forEach((value, key)=>{
         value.name=value.name + "fixed#";
@@ -61,8 +55,6 @@ app.put("/users", (req, res)=>{
         datas: { users }
     });
 })
-
-// Delete
 app.delete("/users", (req, res)=>{
     users = emptyUser;
 
@@ -73,9 +65,6 @@ app.delete("/users", (req, res)=>{
     });
 })
 
-// /user
-
-// Read
 app.get("/user", (req, res)=>{
     const { targetName }=req.query;
 
@@ -90,8 +79,6 @@ app.get("/user", (req, res)=>{
         datas: { users:[ user ] }
     });
 })
-
-// Create
 app.post("/user", (req, res)=>{
     const { name, age } = req.query;
 
@@ -117,8 +104,6 @@ app.post("/user", (req, res)=>{
 
     res.send(sendData);
 })
-
-// Update
 app.put("/user", (req, res)=>{
     const { targetName, name, age } = req.query;
 
@@ -148,8 +133,6 @@ app.put("/user", (req, res)=>{
 
     res.send(sendData);
 })
-
-// Delete
 app.delete("/user", (req, res)=>{
     const { targetName } = req.query;
 
@@ -187,7 +170,7 @@ app.delete("/user", (req, res)=>{
     res.send(sendData);
 })
 
-// Reset Junk Datas
+// Reset Junk Datas with resetToken
 app.post("/reset", (req, res)=>{
     const { resetToken }=req.query;
 
@@ -209,5 +192,6 @@ app.post("/reset", (req, res)=>{
         return res.send(sendData);
     }
 })
+
 // express 인스턴스 실행
 app.listen(process.env.TCP_PORT, ()=>console.log(`Server is running on TCP/IP PORT`));
