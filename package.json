@@ -1,0 +1,24 @@
+{
+  "name": "project-2022-03-express-mongodb",
+  "version": "1.0.0",
+  "description": "MongoDB, Express.JS 를 이용한 RESTful API 서버 개발 및 MongoDB 심화 학습",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unchaptered/22-03-express-mongodb.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "Node"
+  ],
+  "author": "unchaptered",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unchaptered/22-03-express-mongodb/issues"
+  },
+  "homepage": "https://github.com/unchaptered/22-03-express-mongodb#readme"
+}
