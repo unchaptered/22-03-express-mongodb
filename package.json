@@ -2,11 +2,12 @@
   "name": "project-2022-03-express-mongodb",
   "version": "1.0.0",
   "description": "MongoDB, Express.JS 를 이용한 RESTful API 서버 개발 및 MongoDB 심화 학습",
-  "main": "index.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./start.js"
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,8 @@
   "homepage": "https://github.com/unchaptered/22-03-express-mongodb#readme",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "mongoose": "^6.2.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
