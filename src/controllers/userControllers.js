@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import SendForm from "./SendForm.js";
 import userModel from "../models/userModel.js"
 
+import { checkObjectId, checkUserObjectId } from "../middlewares/middlewares.js";
+
 /**
  * @param {*} req.body eamil, password
  * @param {*} res.status.json
@@ -63,7 +65,10 @@ export const getUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const user = await userModel.findById({ _id : req.params._id });
+        const { _id } =req.params;
+        checkObjectId(_id);
+
+        const user = await userModel.findById({ _id });
 
         sendForm.setText = "GetUser is success";
         sendForm.setSuccess = true;
@@ -93,6 +98,8 @@ export const updateUser = async (req, res) => {
             params: { _id },
             body: { before: { email, password }, after: { password:passwordAfter }}
         } = req;
+
+        checkObjectId(_id);
         
         // 옵션 new 는 false 가 디폴트 값, 수정 전의 파일을 리턴.
         // 이 new 를 true 로 변경 하면, 수정 후의 파일을 리턴.
@@ -123,6 +130,9 @@ export const deleteUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
+        const { _id } =req.params;
+        checkObjectId(_id);
+
         /* findByIdAndDelete 메서드는
          *  삭제에 성공할 시, user 을 리턴한다.
          *  삭제에 실패할 시, null 을 리턴한다.
@@ -130,7 +140,7 @@ export const deleteUser = async (req, res) => {
          * 따라서 null 이 리턴되었을 때는 "The User is not Exists" 에러를 통해,
          *  catch 문으로 넘기게 된다.
          */
-        const user = await userModel.findByIdAndDelete({ _id: req.params._id });
+        const user = await userModel.findByIdAndDelete({ _id });
         if (user === null) throw Error("The User is not Exists");
 
         sendForm.setText = "DeleteUser is success";

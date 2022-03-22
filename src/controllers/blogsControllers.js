@@ -1,23 +1,23 @@
 import SendForm from "./SendForm.js";
-import userModel from "../models/userModel.js";
+import blogModel from "../models/blogModel.js";
 
 /**queryString 으로 limit 받아서 사용한다. (기본값 3)
  * 
- * @param {*} req.query.limit
+ * @param {*} req 
  * @param {*} res 
- * @returns res.satus(statusCode).json(new SendForm());
+ * @returns res.status(statusCode).json(new SendForm());
  */
-export const getUsers = async (req, res) => {
+export const getBlogs = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
         const { limit=3 } = req.query;
-        const users = await userModel.find().limit(limit);
-        if (users.length === 0) new Error("No User in server");
+        const blogs = await blogModel.find().limit(limit);
+        if (blogs.length === 0) new Error("No User in server");
         
         sendForm.setText = "GetUser is success";
         sendForm.setSuccess = true;
-        sendForm.setDatas = users;
+        sendForm.setDatas = blogs;
 
         return res.status(200).json(sendForm);
     } catch(err) {
