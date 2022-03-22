@@ -72,14 +72,21 @@ MongoDB 에 대한 설명은 다음 포스트를 참고해주세요.
 
 ## APIs
 
-GET     /user       로그인
-POST    /user       회원가입 (req.body 필요)
+- [✅][1] GET         /user           로그인
+- [✅][2] POST        /user           회원가입 (req.body 필요)
 
-GET     /user/:_id  유저 정보
-PUT     /user/:_id  유저 정보 수정 (req.body.after 에 변경할 password 필요)
-DELETE  /user/:_id  회원탈퇴
+- [✅][3] GET        /user/:_id      유저 정보
+- [✅][4] PUT        /user/:_id      유저 정보 수정 (req.body.after 에 변경할 password 필요)
+- [✅][5] DELETE     /user/:_id      회원탈퇴
 
-GET     /users?limit    모든 유저
+- [✅][6] GET       /users?limit    모든 유저
+
+- [✅][7] POST       /blog           블로그 작성
+- [✅][8] GET        /blog/:_blogId  블로그 보기
+- [✅][9] PATCH      /blog/:_blogId  블로그 수정
+- [✅][10] DELETE     /blog/:_blogId  블로그 삭제
+
+- [✅][11] GET        /blogs?limit    모든 게시글
 
 <hr>
 
