@@ -93,8 +93,11 @@ export const updateUser = async (req, res) => {
             params: { _id },
             body: { before: { email, password }, after: { password:passwordAfter }}
         } = req;
-
-        const user = await userModel.findByIdAndUpdate(_id , { password:passwordAfter });
+        
+        // 옵션 new 는 false 가 디폴트 값, 수정 전의 파일을 리턴.
+        // 이 new 를 true 로 변경 하면, 수정 후의 파일을 리턴.
+        
+        const user = await userModel.findByIdAndUpdate(_id , { password:passwordAfter }, { new: true });
         if (user === null) throw Error("The User is not Exists");
 
         sendForm.setText = "UpdateUser is success";

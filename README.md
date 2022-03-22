@@ -24,6 +24,7 @@ Schemaless, Based on Documentation 이라는 특징을 제대로 살리지 못�
 2. Index
 3. Thoery (Node, npm / Express / MongoDB)
 4. Stacks
+5. APIs
 
 <hr>
 
@@ -66,6 +67,21 @@ MongoDB 에 대한 설명은 다음 포스트를 참고해주세요.
 
 본 프로젝트에서 사용한 프레임워크 및 라이브러리 모듈은 다음과 같습니다.<br>
 정확하지 않을 수 있으니, 확실한 내용은 package.json 을 확인해주세요.
+
+<hr>
+
+## APIs
+
+GET     /user       로그인
+POST    /user       회원가입 (req.body 필요)
+
+GET     /user/:_id  유저 정보
+PUT     /user/:_id  유저 정보 수정 (req.body.after 에 변경할 password 필요)
+DELETE  /user/:_id  회원탈퇴
+
+GET     /users?limit    모든 유저
+
+<hr>
 
 # History
 
