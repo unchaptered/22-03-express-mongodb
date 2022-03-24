@@ -73,7 +73,7 @@ MongoDB 에 대한 설명은 다음 포스트를 참고해주세요.
 ## APIs
 
 | 번호 | 메서드 | 경로 | 기능 | 데이터형 | 완성도 |
-| :--: || :---- | :---- | :--- | :------ | :----: 
+| :--: | :---- | :---- | :--- | :------ | :----: |
 | 1 | GET | /user | 로그인 | email,<br> password | ✅ |
 | 2 | POST | /user | 회원가입 | email,<br> password | ✅ |
 | 3 | GET | /user/detail | 유저정보 읽기 | userId(ObjectId) | ✅ |
