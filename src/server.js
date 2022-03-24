@@ -4,9 +4,9 @@ import morgan from "morgan";
 import express from "express";
 import mongoose from "mongoose";
 
-import userModel from "./models/userModel.js";
-import blogModel from "./models/blogModel.js";
-import commentModel from "./models/commentModel.js";
+import UserModel from "./models/UserModel.js";
+import BlogModel from "./models/BlogModel.js";
+import CommentModel from "./models/CommentModel.js";
 
 import userRouter from "./routers/userRouter.js";
 import usersRouter from "./routers/usersRouter.js";

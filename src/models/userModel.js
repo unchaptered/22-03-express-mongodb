@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     password: { type:String, required:true },
     age:Number,
 
+    blogs: [{ type:mongoose.Types.ObjectId, required:true, ref:"Blog" }],
     comments: [{ type:mongoose.Types.ObjectId, required:true, ref:"Comment" }]
 }, { timestamps:true });
 

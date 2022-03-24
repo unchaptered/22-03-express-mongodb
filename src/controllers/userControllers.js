@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import SendForm from "./SendForm.js";
-import userModel from "../models/userModel.js"
+import SendForm from "../base/SendForm.js";
 
-import { checkObjectId, checkUserObjectId } from "../middlewares/middlewares.js";
+import UserModel from "../models/UserModel.js";
 
 /**
  * @param {*} req.body eamil, password
@@ -13,7 +12,7 @@ export const join = async (req, res) => {
     const sendForm = new SendForm();
 
     try{
-        const user = new userModel(req.body);
+        const user = new UserModel(req.body);
         await user.save();
 
         sendForm.setText = "Join is success";
@@ -39,7 +38,7 @@ export const login = async (req, res) => {
     const sendForm = new SendForm();
 
     try{
-        const user = await userModel.findOne({ ...req.body }).select("email");
+        const user = await UserModel.findOne({ ...req.body }).select("email");
         if (user === null) throw new Error("User is not finded or Password Mismatch");
 
         sendForm.setText = "Login is success";
@@ -65,12 +64,13 @@ export const getUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const { _id } = req.body;
+        const { userId:_id } = req.body;
 
-        const userExists = await mongoose.Types.ObjectId.isValid(_id);
-        if (userExists === false) new Error("The User is not Exists");
+        const userIdFormat = mongoose.Types.ObjectId.isValid(_id);
+        if (userIdFormat === false) new Error("The UserId is not ObjectId Format");
 
-        const user = await userModel.findById({ _id });
+        const user = await UserModel.findById({ _id });
+        if (user === null) new Error("The User is not Exists");
 
         sendForm.setText = "GetUser is success";
         sendForm.setSuccess = true;
@@ -96,15 +96,15 @@ export const updateUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const { _id, after: { password } } = req.body;
+        const { userId:_id, after: { password } } = req.body;
 
-        const userExists = await mongoose.Types.ObjectId.isValid(_id);
-        if (userExists === false) new Error("The User is not Exists");
+        const userIdFormat = mongoose.Types.ObjectId.isValid(_id);
+        if (userIdFormat === false) new Error("The UserId is not ObjectId Format");
         
         // 옵션 new 는 false 가 디폴트 값, 수정 전의 파일을 리턴.
         // 이 new 를 true 로 변경 하면, 수정 후의 파일을 리턴.
         
-        const user = await userModel.findByIdAndUpdate(_id, { password }, { new:true });
+        const user = await UserModel.findByIdAndUpdate(_id, { password }, { new:true });
 
         sendForm.setText = "UpdateUser is success";
         sendForm.setSuccess = true;
@@ -129,10 +129,10 @@ export const deleteUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const { _id } =req.body;
+        const { userId:_id } =req.body;
 
-        const userExists = await mongoose.Types.ObjectId.isValid(_id);
-        if (userExists === false) new Error("The User is not Exists");
+        const userIdFormat = mongoose.Types.ObjectId.isValid(_id);
+        if (userIdFormat === false) new Error("The UserId is not ObjectId Format");
 
         /* findByIdAndDelete 메서드는
          *  삭제에 성공할 시, user 을 리턴한다.
@@ -141,7 +141,7 @@ export const deleteUser = async (req, res) => {
          * 따라서 null 이 리턴되었을 때는 "The User is not Exists" 에러를 통해,
          *  catch 문으로 넘기게 된다.
          */
-        const user = await userModel.findByIdAndDelete(_id);
+        const user = await UserModel.findByIdAndDelete(_id);
 
         sendForm.setText = "DeleteUser is success";
         sendForm.setSuccess = true;

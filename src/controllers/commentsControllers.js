@@ -1,8 +1,8 @@
-import SendForm from "./SendForm.js";
+import SendForm from "../base/SendForm.js";
 
-import userModel from "../models/userModel.js";
-import blogModel from "../models/blogModel.js";
-import commentModel from "../models/commentModel.js";
+import UserModel from "../models/UserModel.js";
+import BlogModel from "../models/BlogModel.js";
+import CommentModel from "../models/CommentModel.js";
 
 export const getAllCommentsByBloggerId = async (req, res) => {
     const sendForm = new SendForm();
@@ -10,7 +10,7 @@ export const getAllCommentsByBloggerId = async (req, res) => {
     try {
         const { blogger } = req.body;
 
-        const comments = await commentModel.find({ blogger });
+        const comments = await CommentModel.find({ blogger });
 
         sendForm.setText = "Get All Comments (by blogger id) is success";
         sendForm.setSuccess = true;
@@ -32,16 +32,16 @@ export const deleteAllCommentByCommentIdAndOwenr = async (req, res) => {
     try {
         const { blogger } = req.body;
 
-        const comments = await commentModel.find({ blogger });
+        const comments = await CommentModel.find({ blogger });
         // console.log(comments);
         
         comments.forEach( async (value, key)=>{
             const { _id, owner, blogger } = value;
 
             const [ user, blog, comment ] = await Promise.all([
-                userModel.findByIdAndUpdate(owner, { $pop: { comments:_id }}, { new:true }),
-                blogModel.findByIdAndUpdate(blogger, { $pop: { comments:_id }}, { new:true }),
-                commentModel.findByIdAndDelete(_id)
+                UserModel.findByIdAndUpdate(owner, { $pop: { comments:_id }}, { new:true }),
+                BlogModel.findByIdAndUpdate(blogger, { $pop: { comments:_id }}, { new:true }),
+                CommentModel.findByIdAndDelete(_id)
             ]);
 
             console.log(key, user, blog, comment);

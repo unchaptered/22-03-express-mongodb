@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-import SendForm from "./SendForm.js";
+import SendForm from "../base/SendForm.js";
 
-import userModel from "../models/userModel.js";
-import blogModel from "../models/blogModel.js";
-import commentModel from "../models/commentModel.js";
+import UserModel from "../models/UserModel.js";
+import BlogModel from "../models/BlogModel.js";
+import CommentModel from "../models/CommentModel.js";
 
 export const getComment = async (req, res) => {
     const sendForm = new SendForm();
@@ -14,7 +14,7 @@ export const getComment = async (req, res) => {
 
         // Read Comment
 
-        const comment = await commentModel.findById(_id);
+        const comment = await CommentModel.findById(_id);
         if (comment === null) new Error("The Comment is not Exists");
 
         sendForm.setText = "getComment is success";
@@ -48,10 +48,10 @@ export const postComment = async (req, res) => {
 
         // Create Comment
         
-        const comment = new commentModel(req.body);
+        const comment = new CommentModel(req.body);
         const [ user, blog ] = await Promise.all([
-           userModel.findByIdAndUpdate(owner, {$push: { comments:comment._id }} ),
-           blogModel.findByIdAndUpdate(blogger, {$push: { comments:comment._id }} ),
+           UserModel.findByIdAndUpdate(owner, {$push: { comments:comment._id }} ),
+           BlogModel.findByIdAndUpdate(blogger, {$push: { comments:comment._id }} ),
            comment.save()
         ]);
 
@@ -77,7 +77,7 @@ export const patchComment = async (req, res) => {
 
         // Update Comemnt
 
-        const comment = await commentModel.findByIdAndUpdate(_id, { content }, { new:true });
+        const comment = await CommentModel.findByIdAndUpdate(_id, { content }, { new:true });
         if (comment === null) new Error("The Comment is not Exists");
 
         sendForm.setText = "patchComment is success";
@@ -114,9 +114,9 @@ export const deleteComment = async (req, res) => {
         // Delete Comment
 
         const [ user, blog, comment ] = await Promise.all([
-            userModel.findByIdAndUpdate(owner, { $pop: { comments:_id }}, { new:true }),
-            blogModel.findByIdAndUpdate(blogger, { $pop: { comments:_id }}, { new:true }),
-            commentModel.findByIdAndDelete(_id)
+            UserModel.findByIdAndUpdate(owner, { $pop: { comments:_id }}, { new:true }),
+            BlogModel.findByIdAndUpdate(blogger, { $pop: { comments:_id }}, { new:true }),
+            CommentModel.findByIdAndDelete(_id)
         ]);
         
         sendForm.setText = "deleteComment is success";

@@ -4,8 +4,9 @@ const blogSchema = new mongoose.Schema({
     title: { type:String, required:true },
     content: { type:String, required:true },
     islive: { type:Boolean, required:true, default:false },
-    owner: { type: mongoose.Types.ObjectId, required:true, ref:"User" },
 
+    owner: { type: mongoose.Types.ObjectId, required:true, ref:"User" },
+    
     comments: [{ type:mongoose.Types.ObjectId, required:true, ref:"Comment" }]
 }, { timestamps:true });
 

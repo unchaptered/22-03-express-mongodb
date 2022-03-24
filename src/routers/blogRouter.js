@@ -6,7 +6,7 @@ const blogRouter = express.Router();
 blogRouter.route("/")
     .post(postBlog);
 
-blogRouter.route("/:_blogId")
+blogRouter.route("/detail")
     .get(getBlog)
     .patch(patchBlog)
     .delete(deleteBlog);

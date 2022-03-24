@@ -1,5 +1,6 @@
-import SendForm from "./SendForm.js";
-import userModel from "../models/userModel.js";
+import SendForm from "../base/SendForm.js";
+
+import UserModel from "../models/UserModel.js";
 
 /**queryString 으로 limit 받아서 사용한다. (기본값 3)
  * 
@@ -13,7 +14,7 @@ export const getUsers = async (req, res) => {
     try {
         const { limit=3 } = req.body;
         
-        const users = await userModel.find().limit(+limit);
+        const users = await UserModel.find().limit(+limit);
         if (users.length === 0) new Error("No User in server");
         
         sendForm.setText = "GetUser is success";
