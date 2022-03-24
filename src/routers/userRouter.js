@@ -8,9 +8,9 @@ userRouter.route("/")
     .get(login)
     .post(join);
 
-userRouter.route("/:_id")
+userRouter.route("/detail")
     .get(getUser)
-    .put(updateUser)
+    .patch(updateUser)
     .delete(deleteUser);
 
 export default userRouter;

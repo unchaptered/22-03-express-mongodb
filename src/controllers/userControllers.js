@@ -57,7 +57,7 @@ export const login = async (req, res) => {
 }
 
 /**
- * @param {*} req.params._id
+ * @param {*} req.body._id
  * @param {*} res.status.json
  * @returns res.satus(statusCode).json(new SendForm());
  */
@@ -65,8 +65,10 @@ export const getUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const { _id } =req.params;
-        checkObjectId(_id);
+        const { _id } = req.body;
+
+        const userExists = await mongoose.Types.ObjectId.isValid(_id);
+        if (userExists === false) new Error("The User is not Exists");
 
         const user = await userModel.findById({ _id });
 
@@ -85,8 +87,8 @@ export const getUser = async (req, res) => {
 }
 
 /**
- * @param {*} req.params._id
- * @param {*} req.body before:{ email, password }, after: { passwordAfter }
+ * @param {*} req.body._id
+ * @param {*} req.body.after.password
  * @param {*} res.status.json
  * @returns res.satus(statusCode).json(new SendForm());
  */
@@ -94,18 +96,15 @@ export const updateUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const {
-            params: { _id },
-            body: { before: { email, password }, after: { password:passwordAfter }}
-        } = req;
+        const { _id, after: { password } } = req.body;
 
-        checkObjectId(_id);
+        const userExists = await mongoose.Types.ObjectId.isValid(_id);
+        if (userExists === false) new Error("The User is not Exists");
         
         // 옵션 new 는 false 가 디폴트 값, 수정 전의 파일을 리턴.
         // 이 new 를 true 로 변경 하면, 수정 후의 파일을 리턴.
         
-        const user = await userModel.findByIdAndUpdate(_id , { password:passwordAfter }, { new: true });
-        if (user === null) throw Error("The User is not Exists");
+        const user = await userModel.findByIdAndUpdate(_id, { password }, { new:true });
 
         sendForm.setText = "UpdateUser is success";
         sendForm.setSuccess = true;
@@ -130,8 +129,10 @@ export const deleteUser = async (req, res) => {
     const sendForm = new SendForm();
 
     try {
-        const { _id } =req.params;
-        checkObjectId(_id);
+        const { _id } =req.body;
+
+        const userExists = await mongoose.Types.ObjectId.isValid(_id);
+        if (userExists === false) new Error("The User is not Exists");
 
         /* findByIdAndDelete 메서드는
          *  삭제에 성공할 시, user 을 리턴한다.
@@ -140,8 +141,7 @@ export const deleteUser = async (req, res) => {
          * 따라서 null 이 리턴되었을 때는 "The User is not Exists" 에러를 통해,
          *  catch 문으로 넘기게 된다.
          */
-        const user = await userModel.findByIdAndDelete({ _id });
-        if (user === null) throw Error("The User is not Exists");
+        const user = await userModel.findByIdAndDelete(_id);
 
         sendForm.setText = "DeleteUser is success";
         sendForm.setSuccess = true;
