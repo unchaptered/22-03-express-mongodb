@@ -72,24 +72,34 @@ MongoDB 에 대한 설명은 다음 포스트를 참고해주세요.
 
 ## APIs
 
-- [✅][1] GET         /user           로그인
-- [✅][2] POST        /user           회원가입 (req.body 필요)
-
-- [✅][3] GET        /user/:_id      유저 정보
-- [✅][4] PUT        /user/:_id      유저 정보 수정 (req.body.after 에 변경할 password 필요)
-- [✅][5] DELETE     /user/:_id      회원탈퇴
-
-- [✅][6] GET       /users?limit    모든 유저
-
-- [✅][7] POST       /blog           블로그 작성
-- [✅][8] GET        /blog/:_blogId  블로그 보기
-- [✅][9] PATCH      /blog/:_blogId  블로그 수정
-- [✅][10] DELETE     /blog/:_blogId  블로그 삭제
-
-- [✅][11] GET        /blogs?limit    모든 게시글
+| 번호 | 완성도 | 메서드 | 경로 | 기능 | 데이터형 |
+| :--: | :----: | :---- | :---- | :--- | :------ |
+| 1 | ✅ | GET | /user | 로그인 | email, password |
+| 2 | ✅ | POST | /user | 회원가입 | email, password |
+| 3 | ✅ | GET | /user/detail | 유저정보 읽기 | userId(ObjectId) |
+| 4 | ✅ | PATCH | /user/detail | 유저정보 수정 | userId(ObjectId), after.password |
+| 5 | ✅ | DELETE | /user/detail | 유저정보 삭제 | userId(ObjectId) |
+| 6 | ✅ | GET | /users | 전체 유저 전체 리스트 | limit(min 3) |
+| 7 | ✅ | POST | /blog | 블로그 등록 | blogId(ObjectId) |
+| 8 | ✅ | GET | /blog/detail | 블로그 읽기 | blogId(ObjectId) |
+| 9 | ✅ | PATCH | /blog/detail | 블로그 수정 | blogId(ObjectId), title, content |
+| 10 | ✅ | DELETE | /blog/detail | 블로그 삭제 | blogId(ObjectId) |
+| 11 | ✅ | GET | /blogs | 전체 게시글 전체 리스트 | limit(min 3) |
+| 12 | ✅ | GET | /comment | 댓글 읽기 | commentId(ObjectId) |
+| 13 | ✅ | POST | /comment | 댓글 쓰기 | owner, blogger, content |
+| 14 | ✅ | PATCH | /comment | 댓글 수정 | commentId(ObjectId), content |
+| 15 | ✅ | DELETE | /comment | 댓글 삭제 | commentId(Objectid), owner, blogger |
+| 16 | ✅ | GET | /comments | 게시글 댓글 전체 리스트 | blogger |
+| 17 | ✅ | DELETE | /comments | 게시글 댓글 전체 삭제  | - |
 
 <hr>
 
 # History
 
-1. 2022-03-20 프로젝트 시작
+| 번호 | 일자 | 설명 |
+| :--: | :--- | :--- |
+| 1 | 2022-03-20 | 프로젝트 시작 |
+| 2 | 2022-03-21 | User CRUD API 구축 (Junk 기반) |
+| 3 | 2022-03-22 | User, Blog CRUD API 구축 (MongoDB 기반) |
+| 4 | 2022-03-24 | Comment CURD API 구축 (MongoDB 기반) |
+| 5 | 2022-03-24 | REFACTORING |
