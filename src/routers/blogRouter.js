@@ -4,11 +4,11 @@ import { postBlog, getBlog, patchBlog, deleteBlog } from "../controllers/blogCon
 const blogRouter = express.Router();
 
 blogRouter.route("/")
-    .post(postBlog)
+    .post(postBlog);
 
 blogRouter.route("/:_blogId")
     .get(getBlog)
     .patch(patchBlog)
-    .delete(deleteBlog)
+    .delete(deleteBlog);
 
 export default blogRouter;

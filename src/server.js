@@ -6,12 +6,16 @@ import mongoose from "mongoose";
 
 import userModel from "./models/userModel.js";
 import blogModel from "./models/blogModel.js";
+import commentModel from "./models/commentModel.js";
 
 import userRouter from "./routers/userRouter.js";
 import usersRouter from "./routers/usersRouter.js";
 
 import blogRouter from "./routers/blogRouter.js";
 import blogsRouter from "./routers/blogsRouter.js";
+
+import commentRouter from "./routers/commentRouter.js";
+import commentsRouter from "./routers/commentsRouter.js";
 
 const APP = express();
 
@@ -31,6 +35,9 @@ const server = async () => {
 
         APP.use("/blog", blogRouter);
         APP.use("/blogs", blogsRouter);
+
+        APP.use("/comment", commentRouter);
+        APP.use("/comments", commentsRouter);
 
         APP.get("/:etc", (req, res) => {
             return res.send({
