@@ -50,12 +50,14 @@ const server = async () => {
         // TCP/IP Port 연결
         APP.listen(process.env.TCP_PORT, async () => {
             console.log(`Server is connected to TCP/IP PORT`);
-            
             await fakeDataGenerator(30,40,50);
         });
+        
     } catch (err) {
         console.error(err);
     }
 }
 
 server();
+
+export default APP;

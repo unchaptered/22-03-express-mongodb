@@ -5,14 +5,15 @@ import UserModel from "../models/UserModel.js";
 import BlogModel from "../models/BlogModel.js";
 import CommentModel from "../models/CommentModel.js";
 
-const TypeChecker = (targetName, targetValue) => {
+export const TypeChecker = (targetName, targetValue) => {
     if (typeof targetValue !== "number") {
         console.error(`Denied ${targetName} : ${targetValue} is not number`);
         return -1;
     }
     return 0;
 }
-const NumberChecker = (targetName, targetValue) => {
+
+export const NumberChecker = (targetName, targetValue) => {
     if (targetValue < 1) {
         console.error(`Denied ${targetName} : ${targetValue} is not positive number`);
         return -1;

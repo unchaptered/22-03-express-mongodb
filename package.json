@@ -8,8 +8,9 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
-    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
-    "test:clear": "node --experimental-vm-modules node_modules/jest/bin/jest.js --clearCache"
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --detectOpenHandles",
+    "test:coverage:silent": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --detectOpenHandles --silent",
+    "test:clear": "node --experimental-vm-modules node_modules/jest/bin/jest.js --clearCache --runInBand --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -34,9 +35,10 @@
     "npm": "^8.5.5"
   },
   "devDependencies": {
-    "jest": "^27.4.7",
+    "@nastyox/rando.js": "^2.0.5",
     "faker": "^5.5.3",
+    "jest": "^27.4.7",
     "nodemon": "^2.0.15",
-    "@nastyox/rando.js": "^2.0.5"
+    "supertest": "^6.2.2"
   }
 }
