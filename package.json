@@ -5,10 +5,9 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "test:clear": "node --experimental-vm-modules node_modules/jest/bin/jest.js --clearCache"
   },
@@ -31,10 +30,13 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "npm": "^8.5.5"
   },
   "devDependencies": {
     "jest": "^27.4.7",
-    "nodemon": "^2.0.15"
+    "faker": "^5.5.3",
+    "nodemon": "^2.0.15",
+    "@nastyox/rando.js": "^2.0.5"
   }
 }
