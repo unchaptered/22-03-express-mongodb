@@ -19,9 +19,9 @@ export default class SendForm {
 
     // Empty Variables for reset to Field Varaibles
 
-    static emptyText = new String();
-    static emptyArray = new Array();
-    static emptyObject = new Object();
+    // static emptyText = new String();
+    // static emptyArray = new Array();
+    // static emptyObject = new Object();
 
     constructor () {}
 
@@ -60,7 +60,7 @@ export default class SendForm {
         return this.success = success;
     }
 
-    set setText(message) {
+    set setMessage(message) {
         if (!SendForm.stringValid(message)) throw TypeError("Parameter is not string");
         
         return this.message = message;
