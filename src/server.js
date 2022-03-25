@@ -17,6 +17,8 @@ import blogsRouter from "./routers/blogsRouter.js";
 import commentRouter from "./routers/commentRouter.js";
 import commentsRouter from "./routers/commentsRouter.js";
 
+import fakeDataGenerator from "./sample/fakeDataGenerator.js";
+
 const APP = express();
 
 const server = async () => {
@@ -46,7 +48,11 @@ const server = async () => {
         })
 
         // TCP/IP Port 연결
-        APP.listen(process.env.TCP_PORT, () => console.log(`Server is connected to TCP/IP PORT`));
+        APP.listen(process.env.TCP_PORT, async () => {
+            console.log(`Server is connected to TCP/IP PORT`);
+            
+            await fakeDataGenerator(30,40,50);
+        });
     } catch (err) {
         console.error(err);
     }
